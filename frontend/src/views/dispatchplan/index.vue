@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleStats,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('dispatchplan')
 const columns = ["方案编号", "方案名称", "适用雨型", "涉及泵站", "编制人", "审核人", "生效日期", "方案状态"]
 const actions = ["提交编制", "批准方案", "废止方案"]
 const statuses = ["待编制", "待审核", "已批准", "已废止"]
-const stats = [{"label": "待编制方案", "value": 0}, {"label": "待审核方案", "value": 0}, {"label": "已批准方案", "value": 0}]
+const stats = ref<{ label: string; value: number }[]>([])
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
@@ -128,6 +129,7 @@ function reload() {
     const payload = listEntries(meta.key, filters.value)
     rows.value = payload.items
     total.value = payload.total
+    stats.value = moduleStats(meta.key)
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : '排水调度方案列表读取失败'
   }

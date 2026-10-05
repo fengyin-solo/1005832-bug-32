@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleStats,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('drainequipment')
 const columns = ["设备编号", "设备名称", "设备型号", "所属泵站", "购置日期", "保养周期", "上次保养日", "设备状态"]
 const actions = ["登记运行", "完成保养", "报废设备"]
 const statuses = ["待保养", "运行中", "已保养", "已报废"]
-const stats = [{"label": "运行中设备", "value": 0}, {"label": "待保养设备", "value": 0}, {"label": "已报废设备", "value": 0}]
+const stats = ref<{ label: string; value: number }[]>([])
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
@@ -128,6 +129,7 @@ function reload() {
     const payload = listEntries(meta.key, filters.value)
     rows.value = payload.items
     total.value = payload.total
+    stats.value = moduleStats(meta.key)
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : '排水设备台账列表读取失败'
   }

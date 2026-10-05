@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleStats,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('floodwarn')
 const columns = ["预警编号", "预警级别", "影响区域", "预警依据", "拟稿人", "发布时间", "解除时间", "预警状态"]
 const actions = ["提交拟稿", "发布预警", "解除预警"]
 const statuses = ["待拟稿", "待发布", "已发布", "已解除"]
-const stats = [{"label": "待发布预警", "value": 0}, {"label": "已发布预警", "value": 0}, {"label": "影响区域数", "value": 0}]
+const stats = ref<{ label: string; value: number }[]>([])
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
@@ -128,6 +129,7 @@ function reload() {
     const payload = listEntries(meta.key, filters.value)
     rows.value = payload.items
     total.value = payload.total
+    stats.value = moduleStats(meta.key)
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : '防涝预警发布列表读取失败'
   }

@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleStats,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('screen')
 const columns = ["清污编号", "所属泵站", "格栅类型", "污物量", "清污方式", "清污人", "清污日期", "清污状态"]
 const actions = ["提交清污", "确认完工", "要求复清"]
 const statuses = ["待清污", "清污中", "已完工", "需复清"]
-const stats = [{"label": "待清污格栅", "value": 0}, {"label": "清污中格栅", "value": 0}, {"label": "本月完工数", "value": 0}]
+const stats = ref<{ label: string; value: number }[]>([])
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
@@ -128,6 +129,7 @@ function reload() {
     const payload = listEntries(meta.key, filters.value)
     rows.value = payload.items
     total.value = payload.total
+    stats.value = moduleStats(meta.key)
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : '格栅清污列表读取失败'
   }

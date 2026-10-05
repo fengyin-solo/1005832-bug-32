@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleStats,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('pumprun')
 const columns = ["运行编号", "所属泵站", "泵组编号", "运行电流", "出水流量", "值班人", "记录时间", "运行状态"]
 const actions = ["提交开机", "登记停机", "上报故障"]
 const statuses = ["待开机", "运行中", "已停机", "故障停机"]
-const stats = [{"label": "运行中泵组", "value": 0}, {"label": "已停机泵组", "value": 0}, {"label": "故障停机泵组", "value": 0}]
+const stats = ref<{ label: string; value: number }[]>([])
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
@@ -128,6 +129,7 @@ function reload() {
     const payload = listEntries(meta.key, filters.value)
     rows.value = payload.items
     total.value = payload.total
+    stats.value = moduleStats(meta.key)
   } catch (error) {
     errorMessage.value = error instanceof Error ? error.message : '泵组运行列表读取失败'
   }
