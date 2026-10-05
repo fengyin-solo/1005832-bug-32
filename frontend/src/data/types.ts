@@ -18,6 +18,8 @@ export type ModuleMeta = {
   actions: string[]
   actionTargets: Record<string, string>
   metrics: string[]
+  // 每个看板指标对应按哪个状态计数；null 表示该指标不是状态计数（如问题数累加），由服务层另行统计。
+  metricStatuses: (string | null)[]
 }
 
 export type PageResult = {

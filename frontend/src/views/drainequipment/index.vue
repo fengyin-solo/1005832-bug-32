@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('drainequipment')
 const columns = ["设备编号", "设备名称", "设备型号", "所属泵站", "购置日期", "保养周期", "上次保养日", "设备状态"]
 const actions = ["登记运行", "完成保养", "报废设备"]
 const statuses = ["待保养", "运行中", "已保养", "已报废"]
-const stats = [{"label": "运行中设备", "value": 0}, {"label": "待保养设备", "value": 0}, {"label": "已报废设备", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

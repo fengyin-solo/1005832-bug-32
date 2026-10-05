@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('waterlog')
 const columns = ["内涝编号", "内涝点位", "积水深度", "影响范围", "处置队", "到场时间", "退水时间", "处置状态"]
 const actions = ["派出处置", "确认退水", "上报升级"]
 const statuses = ["待处置", "处置中", "已退水", "已升级"]
-const stats = [{"label": "待处置内涝点", "value": 0}, {"label": "处置中内涝点", "value": 0}, {"label": "本月退水数", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

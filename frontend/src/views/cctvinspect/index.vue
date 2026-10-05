@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('cctvinspect')
 const columns = ["检测编号", "检测管段", "缺陷等级", "缺陷位置", "检测设备", "检测人", "检测日期", "检测状态"]
 const actions = ["提交检测", "确认评定", "要求复检"]
 const statuses = ["待检测", "检测中", "已评定", "需复检"]
-const stats = [{"label": "待检测管段", "value": 0}, {"label": "检测中管段", "value": 0}, {"label": "需复检管段", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

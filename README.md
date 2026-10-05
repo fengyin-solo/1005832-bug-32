@@ -67,5 +67,17 @@ npm run build
   `frontend/src/api/local-service.ts`。
 - 字段、状态、动作与流转目标集中在 `frontend/src/data/modules.ts`；示例数据在
   `frontend/src/data/seed.ts`。
-- 状态流转只允许在 `local-service.ts` 里改，页面组件不做业务判断。
-- 想回到初始数据：清掉浏览器里 `drainage-pump:entries` 这一项，或调用 `resetModule(模块)`。
+- 状态流转只允许在 `local-service.ts` 里改，页面组件不做业务判断；所有模块的状态都只能
+  沿状态链逐级向前（如闸门调度：待调度 → 调度中 → 已执行 → 已终止），不允许跳级或回退。
+
+## 本地示例数据初始化（幂等）
+
+- 应用启动时自动执行 `initializeSeedData()`（见 `src/main.ts`），也可以在「运营概览」页点
+  「重新灌入示例数据」。该入口是**幂等**的：
+  - 本地保存的示例数据与当前 `SEED_VERSION` 一致时直接跳过，重复执行不会叠加记录；
+  - 旧格式 / 旧版本 / 损坏数据会先按时间戳备份到 `drainage-pump:entries:backup:*`（最多保留
+    5 份，可在控制台通过 `localStorage` 查看），再按模块整组覆盖，不做合并；
+  - 灌入前先校验各模块业务编号（闸门调度为「调度编号」）的唯一性，两条记录编号重复时
+    整条初始化被挡回并列出冲突的模块、编号与记录 id，不写入任何数据；
+  - 写入采用「草稿键 → 读回校验 → 提交」两步，失败自动回滚并保留原数据，之后可直接重试。
+- 只想重置单个模块：调用 `resetModule(模块)`。

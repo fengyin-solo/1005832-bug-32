@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('manhole')
 const columns = ["井编号", "所属管段", "井盖状况", "井深", "检查人", "检查日期", "养护措施", "井体状态"]
 const actions = ["提交检查", "确认养护", "提出维修"]
 const statuses = ["待检查", "检查中", "已养护", "需维修"]
-const stats = [{"label": "待检查检查井", "value": 0}, {"label": "已养护检查井", "value": 0}, {"label": "需维修检查井", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

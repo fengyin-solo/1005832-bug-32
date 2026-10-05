@@ -12,6 +12,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交投运", "安排检修", "停用泵站"],
     actionTargets: {"提交投运": "运行中", "安排检修": "检修中", "停用泵站": "已停用"},
     metrics: ["运行中泵站", "检修中泵站", "待投运泵站"],
+    metricStatuses: ["运行中", "检修中", "待投运"],
   },
   {
     key: "pumprun",
@@ -23,6 +24,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交开机", "登记停机", "上报故障"],
     actionTargets: {"提交开机": "运行中", "登记停机": "已停机", "上报故障": "故障停机"},
     metrics: ["运行中泵组", "已停机泵组", "故障停机泵组"],
+    metricStatuses: ["运行中", "已停机", "故障停机"],
   },
   {
     key: "drainpipe",
@@ -34,6 +36,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["完成巡线", "安排清淤", "报废管段"],
     actionTargets: {"完成巡线": "运行正常", "安排清淤": "待清淤", "报废管段": "已废弃"},
     metrics: ["运行正常管段", "待清淤管段", "待巡线管段"],
+    metricStatuses: ["运行正常", "待清淤", "待巡线"],
   },
   {
     key: "manhole",
@@ -45,6 +48,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交检查", "确认养护", "提出维修"],
     actionTargets: {"提交检查": "检查中", "确认养护": "已养护", "提出维修": "需维修"},
     metrics: ["待检查检查井", "已养护检查井", "需维修检查井"],
+    metricStatuses: ["待检查", "已养护", "需维修"],
   },
   {
     key: "dredge",
@@ -56,6 +60,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交清淤", "确认完工", "要求返工"],
     actionTargets: {"提交清淤": "清淤中", "确认完工": "已完工", "要求返工": "需返工"},
     metrics: ["待清淤管段", "清淤中管段", "本月完工数"],
+    metricStatuses: ["待清淤", "清淤中", "已完工"],
   },
   {
     key: "waterlevel",
@@ -67,6 +72,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交采集", "判定正常", "标记超警戒"],
     actionTargets: {"提交采集": "已采集", "判定正常": "水位正常", "标记超警戒": "超警戒"},
     metrics: ["待采集点位", "水位正常点位", "超警戒点位数"],
+    metricStatuses: ["待采集", "水位正常", "超警戒"],
   },
   {
     key: "rainfall",
@@ -78,6 +84,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交采集", "确认核对", "标记异常"],
     actionTargets: {"提交采集": "已采集", "确认核对": "已核对", "标记异常": "数据异常"},
     metrics: ["待采集雨量站", "已核对雨量站", "数据异常站数"],
+    metricStatuses: ["待采集", "已核对", "数据异常"],
   },
   {
     key: "waterlog",
@@ -89,6 +96,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["派出处置", "确认退水", "上报升级"],
     actionTargets: {"派出处置": "处置中", "确认退水": "已退水", "上报升级": "已升级"},
     metrics: ["待处置内涝点", "处置中内涝点", "本月退水数"],
+    metricStatuses: ["待处置", "处置中", "已退水"],
   },
   {
     key: "floodgate",
@@ -100,6 +108,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交调度", "确认执行", "终止调度"],
     actionTargets: {"提交调度": "调度中", "确认执行": "已执行", "终止调度": "已终止"},
     metrics: ["待调度闸门", "调度中闸门", "已执行调度数"],
+    metricStatuses: ["待调度", "调度中", "已执行"],
   },
   {
     key: "pumpmaint",
@@ -111,6 +120,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交开工", "确认完工", "申请延期"],
     actionTargets: {"提交开工": "检修中", "确认完工": "已完工", "申请延期": "已延期"},
     metrics: ["待开工检修", "检修中泵组", "本月完工数"],
+    metricStatuses: ["待开工", "检修中", "已完工"],
   },
   {
     key: "sluice",
@@ -122,6 +132,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交检修", "判定正常", "提出更换"],
     actionTargets: {"提交检修": "检修中", "判定正常": "状态正常", "提出更换": "需更换"},
     metrics: ["待检修拍门", "状态正常拍门", "需更换拍门"],
+    metricStatuses: ["待检修", "状态正常", "需更换"],
   },
   {
     key: "screen",
@@ -133,6 +144,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交清污", "确认完工", "要求复清"],
     actionTargets: {"提交清污": "清污中", "确认完工": "已完工", "要求复清": "需复清"},
     metrics: ["待清污格栅", "清污中格栅", "本月完工数"],
+    metricStatuses: ["待清污", "清污中", "已完工"],
   },
   {
     key: "outfallpatrol",
@@ -144,6 +156,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交巡查", "确认完成", "上报问题"],
     actionTargets: {"提交巡查": "巡查中", "确认完成": "已完成", "上报问题": "已上报"},
     metrics: ["待巡查排口", "已完成巡查", "本月发现问题数"],
+    metricStatuses: ["待巡查", "已完成", null],
   },
   {
     key: "floodwarn",
@@ -155,6 +168,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交拟稿", "发布预警", "解除预警"],
     actionTargets: {"提交拟稿": "待发布", "发布预警": "已发布", "解除预警": "已解除"},
     metrics: ["待发布预警", "已发布预警", "影响区域数"],
+    metricStatuses: ["待发布", "已发布", "已解除"],
   },
   {
     key: "rescueteam",
@@ -166,6 +180,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["派出抢险", "确认归队", "终止任务"],
     actionTargets: {"派出抢险": "抢险中", "确认归队": "已归队", "终止任务": "已终止"},
     metrics: ["待派队任务", "抢险中任务", "已归队任务"],
+    metricStatuses: ["待派队", "抢险中", "已归队"],
   },
   {
     key: "drainequipment",
@@ -177,6 +192,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["登记运行", "完成保养", "报废设备"],
     actionTargets: {"登记运行": "运行中", "完成保养": "已保养", "报废设备": "已报废"},
     metrics: ["运行中设备", "待保养设备", "已报废设备"],
+    metricStatuses: ["运行中", "待保养", "已报废"],
   },
   {
     key: "cctvinspect",
@@ -188,6 +204,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交检测", "确认评定", "要求复检"],
     actionTargets: {"提交检测": "检测中", "确认评定": "已评定", "要求复检": "需复检"},
     metrics: ["待检测管段", "检测中管段", "需复检管段"],
+    metricStatuses: ["待检测", "检测中", "需复检"],
   },
   {
     key: "dispatchplan",
@@ -199,6 +216,7 @@ export const MODULES: ModuleMeta[] = [
     actions: ["提交编制", "批准方案", "废止方案"],
     actionTargets: {"提交编制": "待审核", "批准方案": "已批准", "废止方案": "已废止"},
     metrics: ["待编制方案", "待审核方案", "已批准方案"],
+    metricStatuses: ["待编制", "待审核", "已批准"],
   },
 ]
 

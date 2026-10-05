@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('waterlevel')
 const columns = ["监测编号", "监测点位", "水位读数", "警戒水位", "采集时间", "监测人", "超标判定", "监测状态"]
 const actions = ["提交采集", "判定正常", "标记超警戒"]
 const statuses = ["待采集", "已采集", "水位正常", "超警戒"]
-const stats = [{"label": "待采集点位", "value": 0}, {"label": "水位正常点位", "value": 0}, {"label": "超警戒点位数", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

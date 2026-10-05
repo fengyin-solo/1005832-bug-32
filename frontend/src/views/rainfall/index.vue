@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('rainfall')
 const columns = ["监测编号", "雨量站名", "时段雨量", "累计雨量", "降雨强度", "采集时间", "记录人", "监测状态"]
 const actions = ["提交采集", "确认核对", "标记异常"]
 const statuses = ["待采集", "已采集", "已核对", "数据异常"]
-const stats = [{"label": "待采集雨量站", "value": 0}, {"label": "已核对雨量站", "value": 0}, {"label": "数据异常站数", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

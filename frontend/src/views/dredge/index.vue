@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('dredge')
 const columns = ["清淤编号", "清淤管段", "淤积厚度", "清淤方式", "清淤班组", "清淤日期", "清淤量", "清淤状态"]
 const actions = ["提交清淤", "确认完工", "要求返工"]
 const statuses = ["待清淤", "清淤中", "已完工", "需返工"]
-const stats = [{"label": "待清淤管段", "value": 0}, {"label": "清淤中管段", "value": 0}, {"label": "本月完工数", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('sluice')
 const columns = ["检修编号", "所属泵站", "拍门编号", "密封状况", "检修方式", "检修人", "检修日期", "拍门状态"]
 const actions = ["提交检修", "判定正常", "提出更换"]
 const statuses = ["待检修", "检修中", "状态正常", "需更换"]
-const stats = [{"label": "待检修拍门", "value": 0}, {"label": "状态正常拍门", "value": 0}, {"label": "需更换拍门", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

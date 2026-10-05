@@ -35,3 +35,13 @@ body { margin: 0; background: #f6f8fb; color: #1f2937; }
 .error-text { color: #b42318; }
 .status-legend { display: flex; flex-wrap: wrap; gap: 12px; margin: 0 0 10px; font-size: 12px; color: var(--muted); }
 .legend-item { background: #eef2f7; border-radius: 999px; padding: 2px 10px; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(15, 23, 42, 0.45); display: flex; align-items: center; justify-content: center; z-index: 1000; }
+.modal-card { background: #fff; border-radius: 10px; width: min(640px, 92vw); max-height: 86vh; overflow: auto; padding: 16px 18px; box-shadow: 0 18px 48px rgba(15, 23, 42, 0.25); }
+.modal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
+.modal-head h3 { margin: 0; font-size: 16px; }
+.detail-table th { width: 120px; background: #f8fafc; white-space: nowrap; }
+.detail-tip { margin: 10px 0 0; font-size: 12px; color: var(--muted); }
+.init-notice { border-radius: 8px; padding: 8px 12px; font-size: 13px; margin: 0 0 12px; border: 1px solid var(--border); background: #eef6ff; color: #17497a; }
+.init-notice.warn { background: #fff7e8; border-color: #f3d39a; color: #8a5a00; }
+.init-notice.error { background: #fef3f2; border-color: #f0a79f; color: #b42318; }
+.init-notice .link { margin-left: 8px; }

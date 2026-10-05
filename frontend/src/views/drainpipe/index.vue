@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('drainpipe')
 const columns = ["管段编号", "起点井号", "终点井号", "管径", "埋深", "管材", "敷设日期", "管段状态"]
 const actions = ["完成巡线", "安排清淤", "报废管段"]
 const statuses = ["待巡线", "运行正常", "待清淤", "已废弃"]
-const stats = [{"label": "运行正常管段", "value": 0}, {"label": "待清淤管段", "value": 0}, {"label": "待巡线管段", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)

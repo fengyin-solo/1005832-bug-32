@@ -77,6 +77,7 @@ import {
   downloadEntries,
   listEntries,
   moduleMeta,
+  moduleMetricCards,
   runAction as applyAction,
 } from '@/api/local-service'
 import type { EntryRow } from '@/data/types'
@@ -85,7 +86,7 @@ const meta = moduleMeta('outfallpatrol')
 const columns = ["巡查编号", "排口名称", "所在河段", "排放水质", "巡查人", "巡查日期", "发现问题数", "巡查状态"]
 const actions = ["提交巡查", "确认完成", "上报问题"]
 const statuses = ["待巡查", "巡查中", "已完成", "已上报"]
-const stats = [{"label": "待巡查排口", "value": 0}, {"label": "已完成巡查", "value": 0}, {"label": "本月发现问题数", "value": 0}]
+const stats = computed(() => moduleMetricCards(meta.key))
 
 const rows = ref<EntryRow[]>([])
 const total = ref(0)
